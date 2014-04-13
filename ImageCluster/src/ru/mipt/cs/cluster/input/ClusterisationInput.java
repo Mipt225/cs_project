@@ -5,7 +5,9 @@ public class ClusterisationInput {
 	private int convergence;
 	private String inputImage;
 	private int algorithm;
-	/* algorithm number 0 - kmeans 
+	/* algorithm number 0 - kmeans with Euclidian distance
+	 * algorithm number 1 - kmeans with Euclidian square distance
+	 * algorithm number 3 - kmeans with Manhattan distance
 	 * the others to be added later*/
 	
 	public void setNumOfClusters (int a) {
