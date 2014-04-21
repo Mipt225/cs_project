@@ -1,7 +1,13 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class Diagram{
+	public final static int TOP=0;
+	public final static int MID=1;
+	public final static int BOT=2;
+	
+	
 	protected int columns;
 	protected int dwidth;
 	protected int cwidth;
@@ -14,15 +20,31 @@ public class Diagram{
 	protected boolean endsquares;
 	protected String ylabel,dlabel,xlabel;
 	protected Color endColor;
-	public Diagram(){
-		xlabel="";
-		ylabel="";
-		dlabel="";
-		yscale=1;
-		endsquares=false;
-		dx=0;
-		dy=40;
-		
+	protected boolean legend;
+	protected int where;
+	protected boolean percents;
+	protected Font labelsFont;
+	protected Font columnFont;
+	public Diagram(int columns, Color[] colors, float h[]){
+		this.columns = columns;
+		this.colo = colors;
+		this.h = h;
+		this.dwidth = 570;
+		this.cwidth = 32;
+		this.dheigth = 150;
+		this.yscale = 1;
+		this.dx = 30;
+		this.dy = 35;
+		this.endsquares = false;
+		this.endColor = new Color(50,50,50);
+		this.setColumnFont(new Font("Arial", 0, 10));
+		this.where=Diagram.TOP;
+		this.legend = true;
+		this.percents = true;
+		this.setLabelsFont(new Font("Arial", Font.BOLD, 12));
+		this.xlabel = "";
+		this.dlabel = "";
+		this.ylabel = "";			
 	}
 	//Основной метод, печатающий матрицу с помощью Graphics g
 	void print(Graphics g) {
@@ -42,7 +64,28 @@ public class Diagram{
 						(int) ((h[i]*yscale<cwidth)?(h[i] * yscale):cwidth) );
 				
 			}
+			g.setFont(columnFont);
+			g.setColor(Color.BLACK);
+			if(legend==true){
+				switch (where){
+					case 1:{//MID
+						g.drawString(Float.toString(h[i])+((percents==true)? "%":""), 
+							(int)(dx+(dwidth / columns)*(2*i+1)/2 - cwidth / 2),
+							(int) (-h[i] / 2 * yscale + 3 + dheigth+dy+ ((endsquares==true)?cwidth/2:0)) ) ;break;}
+					case 2:{//BOT
+						g.drawString(Float.toString(h[i])+((percents==true)? "%":""), 
+							(int)(dx+(dwidth / columns)*(2*i+1)/2 - cwidth / 2),
+							(int) (13 + dheigth+dy)) ;break;}
+					default:{//TOP
+						g.drawString(Float.toString(h[i])+((percents==true)? "%":""), 
+							(int)(dx+(dwidth / columns)*(2*i+1)/2 - cwidth / 2),
+							(int) (-h[i] * yscale - 4 + dheigth+dy)) ;break;}	
+				}
+			}
+			
+			
 		}
+		g.setFont(labelsFont);
 		g.setColor(Color.black);
 		g.drawLine(dx, dy+dheigth, dx+dwidth, dy+dheigth);
 		g.drawLine(dx, dy, dx, dy+dheigth);
@@ -50,24 +93,6 @@ public class Diagram{
 		g.drawString(dlabel, dx+dwidth/2-4*dlabel.length()+4, dy+10);
 		g.drawString(xlabel, dx+dwidth-10-4*xlabel.length(), dy+dheigth+20);
 		
-	}
-	//Создание какой-то диаграммы. Стоит доделать под конкретную задачу
-	public void setStandart(int columns, Color[] colors, float h[]) {
-		this.columns = columns;
-		this.colo = colors;
-		this.h=h;
-		this.dwidth = 360;
-		this.cwidth = 24;
-		this.dheigth = 150;
-		this.yscale = 1;
-		this.dx = 30;
-		this.dy = 35;
-		this.endsquares = false;
-		this.endColor = new Color(50,50,50);
-		this.xlabel = "";
-		this.dlabel = "";
-		this.ylabel = "";
-
 	}
 	//Число столбцов
 	public void setColumns(int columns) {
@@ -95,6 +120,20 @@ public class Diagram{
 	public void setColors(Color[] colo) {
 		this.colo = colo;
 	}
+	//Add labels to each column
+	public void setLegend(boolean legend){
+		this.legend=legend;
+	}
+	//Add "%" to labels
+	public void setPercents(boolean percents){
+		this.percents=percents;
+		
+		
+	}
+	//where to draw labels
+	public void setWhere(int where){
+		this.where=where;		
+	}
 	//Позволяет отметить вершины столбцов квадратными метками для пущей красоты
 	public void setEndsquares(boolean endsquares) {
 		this.endsquares = endsquares;
@@ -107,6 +146,12 @@ public class Diagram{
 		this.dlabel = dlabel;
 		this.xlabel = xlabel;
 		this.ylabel = ylabel;
+	}
+	public void setLabelsFont(Font labelsFont) {
+		this.labelsFont = labelsFont;
+	}
+	public void setColumnFont(Font columnFont) {
+		this.columnFont = columnFont;
 	}
 	
 	

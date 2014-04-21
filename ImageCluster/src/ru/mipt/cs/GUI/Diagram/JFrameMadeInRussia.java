@@ -7,8 +7,8 @@ import javax.swing.*;
 public class JFrameMadeInRussia {
    public static void main(String[] a) {
       MyJFrame f = new MyJFrame();
-      f.setTitle("Диаграмма v1.0");
-      f.setBounds(300,70,440,220);
+      f.setTitle("Диаграмма v1.1");
+      f.setBounds(300,70,640,220);
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       f.setVisible(true);
    }
@@ -23,12 +23,12 @@ public class JFrameMadeInRussia {
     		  h[i]=50+10*i;
     		  
     	  }//Задаём параметры диаграммы диаграмму    	  
-    	  Diagram d=new Diagram();
-    	  d.setStandart(n, colo, h);
+    	  Diagram d=new Diagram(n, colo, h);
     	  d.setLabels("Diagram", "X", "Y");
+    	  d.setWhere(Diagram.TOP);
     	  d.setEndsquares(true);
     	  //Создаём картинку, в которую будет вставлена 
-    	  BufferedImage dia=new BufferedImage(440,220,BufferedImage.TYPE_INT_RGB);
+    	  BufferedImage dia=new BufferedImage(640,220,BufferedImage.TYPE_INT_RGB);
     	  Graphics s=dia.getGraphics();
     	  g.setColor(new Color(130,130,130));
     	  s.fillRect(0, 0, dia.getWidth(), dia.getHeight());
