@@ -19,6 +19,7 @@ public class SameCenterThreshold implements Threshold {
 	}
 	
 	public boolean jobDone(Cluster[] clusters) {
+		// job done checker
 		for (int i = 0; i < clusters.length; i++) {
 
 			Pixel lastCenter = lastClusters[i].getCentral();
