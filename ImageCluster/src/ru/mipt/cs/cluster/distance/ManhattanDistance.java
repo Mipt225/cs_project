@@ -1,5 +1,5 @@
 package ru.mipt.cs.cluster.distance;
-import ru.mipt.cs.cluster.clustering.Pixel;
+import ru.mipt.cs.cluster.kmeans.Pixel;
 
 public class ManhattanDistance implements Distance {
 	
@@ -13,6 +13,6 @@ public class ManhattanDistance implements Distance {
 		distance += Math.abs(first.getGreen() - second.getGreen());
 		distance += Math.abs(first.getBlue() - second.getBlue());
 		
-		return distance;
+		return distance / 3;
 	}
 }

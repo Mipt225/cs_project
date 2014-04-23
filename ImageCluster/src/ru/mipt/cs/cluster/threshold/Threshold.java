@@ -1,6 +1,6 @@
 package ru.mipt.cs.cluster.threshold;
-import ru.mipt.cs.cluster.clustering.Partition;
+import ru.mipt.cs.cluster.kmeans.Cluster;
 
 public interface Threshold {
-	boolean jobDone (Partition[] pixels);
+	boolean jobDone (Cluster[] clusters);
 }

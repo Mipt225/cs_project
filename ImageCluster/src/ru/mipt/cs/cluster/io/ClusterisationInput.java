@@ -1,20 +1,20 @@
-package ru.mipt.cs.cluster.input;
+package ru.mipt.cs.cluster.io;
 
 public class ClusterisationInput {
 	private int numOfClusters;
-	private int convergence;
+	private double convergence;
 	private String inputImage;
 	private int algorithm;
 	/* algorithm number 0 - kmeans with Euclidian distance
 	 * algorithm number 1 - kmeans with Euclidian square distance
-	 * algorithm number 3 - kmeans with Manhattan distance
+	 * algorithm number 2 - kmeans with Manhattan distance
 	 * the others to be added later*/
 	
 	public void setNumOfClusters (int a) {
 		numOfClusters = a;
 	}
 	
-	public void setConvergence (int a) {
+	public void setConvergence (double a) {
 		convergence = a;
 	}
 	
@@ -30,7 +30,7 @@ public class ClusterisationInput {
 		return numOfClusters;
 	}
 	
-	public int getConvergence () {
+	public double getConvergence () {
 		return convergence;
 	}
 	

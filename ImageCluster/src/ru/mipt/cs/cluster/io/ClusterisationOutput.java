@@ -1,9 +1,10 @@
-package ru.mipt.cs.cluster.output;
+package ru.mipt.cs.cluster.io;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 public class ClusterisationOutput {
-	private String outputImage;
+	private BufferedImage outputImage;
 	private int[] clusterDistribution;
 	private Color[] clusterColor;
 	/* For reference:
@@ -18,7 +19,7 @@ public class ClusterisationOutput {
 	 * are never premultiplied by the alpha component.
 	 */
 	
-	public void setOutputImage (String s) {
+	public void setOutputImage (BufferedImage s) {
 		outputImage = s;
 	}
 	
@@ -30,7 +31,7 @@ public class ClusterisationOutput {
 		clusterColor = c;
 	}
 	
-	public String getOutputImage () {
+	public BufferedImage getOutputImage () {
 		return outputImage;
 	}
 	

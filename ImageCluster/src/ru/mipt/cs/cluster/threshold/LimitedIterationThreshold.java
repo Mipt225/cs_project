@@ -1,5 +1,6 @@
 package ru.mipt.cs.cluster.threshold;
-import ru.mipt.cs.cluster.clustering.Partition;
+
+import ru.mipt.cs.cluster.kmeans.Cluster;
 
 public class LimitedIterationThreshold implements Threshold {
 	/* Total number of iterations */
@@ -11,7 +12,7 @@ public class LimitedIterationThreshold implements Threshold {
 		this.iter = iter;
 	}
 	
-	public boolean jobDone (Partition[] pixels) {
+	public boolean jobDone (Cluster[] clusters) {
 		currentIter++;
 		return (currentIter >= iter);
 	}

@@ -1,32 +1,48 @@
 package ru.mipt.cs.cluster.threshold;
-import ru.mipt.cs.cluster.clustering.Partition;
+
+import ru.mipt.cs.cluster.kmeans.Cluster;
+import ru.mipt.cs.cluster.kmeans.Pixel;
 
 /* Stops after getting the same set of centers */
 
 public class SameCenterThreshold implements Threshold {
 	/* Remember the last partition */
-	private Partition[] lastPartitions = null;
+	private Cluster[] lastClusters = new Cluster[255];
 	/* Comparison error (= 1 - convergence) default = 0.05 */
 	private double comparisonError = 0.05;
 	
 	public SameCenterThreshold (double comparisonError) {
 		this.comparisonError = comparisonError;
+		for (int i = 0; i < lastClusters.length; i++) {
+			lastClusters[i] = new Cluster(0, new Pixel(0));
+		}
 	}
 	
-	public boolean jobDone(Partition[] partitions) {
-		for (int i = 0; i < partitions.length; i++) {
-			double[] lastCenter = lastPartitions[i].getCenter();
-			double[] newCenter = partitions[i].getCenter();
+	public boolean jobDone(Cluster[] clusters) {
+		for (int i = 0; i < clusters.length; i++) {
+
+			Pixel lastCenter = lastClusters[i].getCentral();
+			Pixel newCenter = clusters[i].getCentral();
 			
-			for (int j = 0; j < newCenter.length; j++) {
-				if (Math.abs(lastCenter[j] - newCenter[j]) > comparisonError) {
-					lastPartitions = partitions;
-					return false;
-				}
+			comparisonError *= clusters[i].getPixelCount();
+			
+			if (Math.abs(lastCenter.getRed() - newCenter.getRed()) > comparisonError) {
+				lastClusters = clusters;
+				return false;
+			}
+			
+			if (Math.abs(lastCenter.getRed() - newCenter.getRed()) > comparisonError) {
+				lastClusters = clusters;
+				return false;
+			}
+			
+			if (Math.abs(lastCenter.getRed() - newCenter.getRed()) > comparisonError) {
+				lastClusters = clusters;
+				return false;
 			}
 		}
 		
-		lastPartitions = partitions;
+		lastClusters = clusters;
 		return true;
 	}
 }

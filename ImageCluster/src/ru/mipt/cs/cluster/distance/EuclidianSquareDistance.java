@@ -1,5 +1,5 @@
 package ru.mipt.cs.cluster.distance;
-import ru.mipt.cs.cluster.clustering.Pixel;
+import ru.mipt.cs.cluster.kmeans.Pixel;
 
 public class EuclidianSquareDistance implements Distance {
 	
