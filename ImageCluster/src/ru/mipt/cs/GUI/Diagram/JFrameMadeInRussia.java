@@ -1,4 +1,8 @@
+package ru.mipt.cs.GUI.Diagram;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -9,8 +13,22 @@ public class JFrameMadeInRussia {
       MyJFrame f = new MyJFrame();
       f.setTitle("Диаграмма v1.1");
       f.setBounds(300,70,640,220);
-      f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
       f.setVisible(true);
+      
+     JButton jb=new JButton();
+     jb.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	});
+      
+      
+      
+      
    }
    static class MyJFrame extends JFrame {
       public void paint(Graphics g) {
@@ -25,7 +43,7 @@ public class JFrameMadeInRussia {
     	  }//Задаём параметры диаграммы диаграмму    	  
     	  Diagram d=new Diagram(n, colo, h);
     	  d.setLabels("Diagram", "X", "Y");
-    	  d.setWhere(Diagram.TOP);
+    	  d.setWhere(Diagram.BOT);
     	  d.setEndsquares(true);
     	  //Создаём картинку, в которую будет вставлена 
     	  BufferedImage dia=new BufferedImage(640,220,BufferedImage.TYPE_INT_RGB);

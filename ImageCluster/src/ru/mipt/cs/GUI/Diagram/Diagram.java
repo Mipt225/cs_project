@@ -1,3 +1,4 @@
+package ru.mipt.cs.GUI.Diagram;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
