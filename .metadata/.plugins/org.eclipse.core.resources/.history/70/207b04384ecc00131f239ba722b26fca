@@ -25,7 +25,7 @@
 		    <!-- This is the executable jar -->
 		    <jar jarfile="${dist}/lib/WindowsAndButtons.jar" basedir="${build}">
 		        <manifest>
-		            <attribute name="Main-Class" value="WindowsAndButtons"/>
+		            <attribute name="Main-Class" value="jab.jm.main.Test"/>
 		            <attribute name="Class-Path" value="${mf.classpath}"/> 
 		        </manifest>
 		    </jar>
