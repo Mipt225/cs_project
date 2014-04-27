@@ -12,11 +12,11 @@
 	</target>
 	<target name="dist" depends="compile" description="generate the distribution" > 
 		<mkdir dir="${dist}/lib"/>
-		<!-- Remove manifest. This jar will end up on the classpath of CC.jar -->
+		
 		    <jar jarfile="${dist}/lib/WindowsAndButtons-${DSTAMP}.jar" basedir="${build}"/>
 
 		    <!-- Fancy task that takes the pain out creating properly formatted manifest value -->
-		    <manifestclasspath property="mf.classpath" jarfile="${dist}/lib/CC.jar">
+		    <manifestclasspath property="mf.classpath" jarfile="${dist}/lib/WindowsAndButtons.jar">
 		        <classpath>
 		            <fileset dir="${dist}/lib" includes="*.jar"/>
 		        </classpath><!--end tag-->
