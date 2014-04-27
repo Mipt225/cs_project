@@ -29,6 +29,7 @@ public class KMeans {
         int y = 0; 
         int dx = image.getWidth() / k; 
         int dy = image.getHeight() / k; 
+        
         for (int i = 0; i < k; i++) { 
         	Pixel pixel = new Pixel(image.getRGB(x, y));
             result[i] = new Cluster(i, pixel); 
@@ -41,11 +42,15 @@ public class KMeans {
     }
 	
 	public Cluster findMinimalCluster(Distance distance, Pixel pixel) { 
-        Cluster cluster = null; 
+        
+		Cluster cluster = null; 
         int min = Integer.MAX_VALUE; 
+        
         for (int i = 0; i < clusters.length; i++) { 
+        	
             int dist = clusters[i].distance(distance, pixel); 
             if (dist < min) { 
+            	
                 min = dist; 
                 cluster = clusters[i]; 
             } 
@@ -63,12 +68,17 @@ public class KMeans {
 		
 		Distance distanceAlgorithm = null;
 		if (input.getAlgorithm() == 0) {
+			
 			distanceAlgorithm = new EuclidianDistance();
 		}
+		
 		else if (input.getAlgorithm() == 1) {
+			
 			distanceAlgorithm = new EuclidianSquareDistance();
 		}
+		
 		else if (input.getAlgorithm() == 2) {
+			
 			distanceAlgorithm = new ManhattanDistance();
 		}
 		
@@ -83,10 +93,13 @@ public class KMeans {
 		
 		Threshold threshold = null;
 		if (convergence >= 1) {
+			
 			iterations = (int) convergence;
 			threshold = new LimitedIterationThreshold(iterations);
 		}
+		
 		else if (convergence < 1) {
+			
 			threshold = new SameCenterThreshold(1 - convergence);
 		}
 		
@@ -120,7 +133,9 @@ public class KMeans {
 		
 		BufferedImage result = new BufferedImage (width, height, BufferedImage.TYPE_INT_RGB);
 		for (int y = 0; y < height; y++) {
+			
 			for (int x = 0; x < width; x++) {
+				
 				int clusterId = tableOfPixels[width * y + x];
 				result.setRGB(x, y, clusters[clusterId].getRGB());
 			}
@@ -130,11 +145,13 @@ public class KMeans {
 		
 		int clustersSize[] = new int[input.getNumOfClusters()];
 		for (int i = 0; i < input.getNumOfClusters(); i++) {
+			
 			clustersSize[i] = clusters[i].getPixelCount();
 		}
 
 		Color[] clustersColor = new Color[input.getNumOfClusters()];
 		for (int i = 0; i < input.getNumOfClusters(); i++) {
+			
 			clustersColor[i] = new Color(clusters[i].getRGB());
 		}
 		
