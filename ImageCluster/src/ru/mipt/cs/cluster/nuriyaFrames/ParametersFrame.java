@@ -10,7 +10,7 @@ public class ParametersFrame extends JFrame {
 	private JLabel algorithmLabel;
 	private JLabel inputImageLabel;
 	
-	
+	private JTextField numberOfClustersField;
 	
 	
 }
