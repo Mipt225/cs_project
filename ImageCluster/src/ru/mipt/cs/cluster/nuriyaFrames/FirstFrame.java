@@ -95,10 +95,10 @@ public class FirstFrame extends JFrame{
 	
 	private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		JFrame helpFrame = new HelpFrame();
-		helpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		helpFrame.setSize(1000, 500);
+		helpFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		helpFrame.setSize(600, 300);
+		helpFrame.setLocation(400, 100);
 		
-		setVisible(false);
 		helpFrame.setVisible(true);
 	}
 	

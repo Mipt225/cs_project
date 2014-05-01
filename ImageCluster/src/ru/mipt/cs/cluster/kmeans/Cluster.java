@@ -1,15 +1,18 @@
 package ru.mipt.cs.cluster.kmeans;
 
 
+import java.util.ArrayList;
 import ru.mipt.cs.cluster.distance.Distance;
 
 public class Cluster {
+	
 	private int id; 
     private int pixelCount; 
     private Pixel central = new Pixel(0); 
     private int reds; 
     private int greens; 
     private int blues; 
+    private ArrayList<Pixel> pixels = new ArrayList<Pixel>();
      
     public Cluster (int id, Pixel pixel) { 
         this.id = id; 
@@ -45,12 +48,18 @@ public class Cluster {
         int b = blues / pixelCount; 
         return 0xff000000 | r << 16 | g << 8 | b; 
     } 
+    
+    public ArrayList<Pixel> getPixels () {
+    	return pixels;
+    }
+    
     public void addPixel (Pixel pixel) { 
     	
         reds += pixel.getRed(); 
         greens += pixel.getGreen(); 
         blues += pixel.getBlue(); 
         pixelCount++; 
+        pixels.add(pixel);
     } 
      
     public void removePixel (Pixel pixel) { 
@@ -58,7 +67,8 @@ public class Cluster {
     	reds -= pixel.getRed(); 
         greens -= pixel.getGreen(); 
         blues -= pixel.getBlue(); 
-        pixelCount++; 
+        pixelCount++;
+        pixels.remove(pixel);
     } 
     
     public void calculateCentral() {
