@@ -1,6 +1,7 @@
 package ru.mipt.cs.cluster.nuriyaFrames;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.net.*;
 
 import javax.swing.*;
@@ -16,16 +17,63 @@ public class HelpFrame extends JFrame {
 	private JList paramInfo;
 	
 	public HelpFrame() {
+		
 		initComponents();
 	}
 	
 	private void initComponents() {
+		
 		wikiButton = new JButton();
 		googleButton = new JButton();
 		introduction = new JLabel();
-		paramInfo = new JList();
 		
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		DefaultListModel listModel = new DefaultListModel(); 
+		paramInfo = new JList(listModel);
+		JScrollPane sp = new JScrollPane(paramInfo);   
+		
+		String cluster = "<html><h2>Cluster</h2>" +
+                "<font face=’verdana’ size = 4>" +
+                " In our case, cluster is a group of pixels which values are very close. <br>" +
+                " Every pixel is a vector which has three coordinates in a special basis called RGB.<br>" +
+                " Each cluster has a center; when pixel is added, center changes.<br>" +
+                " The final color of a particular cluster is the color of its center.<br>" +
+                " The number of clusters must be between 1 and 255. The number of clusters <br>" +
+                " represents the total number of colors in output image. <br>" +
+                " You should try to estimate the number of clusters you need for this picture by yourself." +
+                " </html>";
+		
+		String convergence = "<html><h2>Convergence</h2>" +
+                "<font face=’verdana’ size = 4>" +
+                " The value of convergence depends on how accurate the distribution of pixels must be.<br>" +
+                " There are two different ways: you can enter the number less than 1 and the algorithm will run until <br>" +
+                " the difference between the center and the pixels in cluster will be less than this percent;<br>" +
+                " or you can enter number bigger than 1 and in that case algorithm will run <br>" +
+                " until given number of iterations is done. <br>" +
+                " We recommend you to choose convergence near 0,9 or number of iterations 3 or 4, as they show the best results. <br>" +
+                " </html>";
+		
+		String algorithm = "<html><h2>Algorithm</h2>" +
+                "<font face=’verdana’ size = 4>" +
+                " Distance algorithm is an algorithm by which we estimate the distances between pixels.<br>" +
+                " Distance algorithms can be different. You can choose between three of them:  <br>" +
+                " Euclidian squared distance; Euclidian distance and Manhattan distance. <br>" +
+                " They all use different formulas, so the result is slightly different. <br>" +
+                " We recommend you to try all of this algorithms and then choose the best. <br>" +
+                " </html>";;
+		
+		listModel.addElement(new ParameterDescription("Cluster", cluster));  
+	    listModel.addElement(new ParameterDescription("Convergence",convergence));  
+	    listModel.addElement(new ParameterDescription("Algorithm", algorithm));  
+	    
+	    paramInfo.addMouseListener(new MouseAdapter(){  
+	    	
+	      public void mouseClicked(MouseEvent me){ 
+	    	  
+	        ParameterDescription temp = (ParameterDescription)paramInfo.getSelectedValue();  
+	        if(temp != null)  
+	        {  
+	          JOptionPane.showMessageDialog(HelpFrame.this, temp.getDescription());  
+	        }}});  
 		
 		setTitle("Help");
 		
@@ -70,6 +118,7 @@ public class HelpFrame extends JFrame {
 				}
 			}
 		});
+		
 		
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
