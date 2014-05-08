@@ -4,6 +4,8 @@ import java.awt.Font;
 
 import javax.swing.*;
 
+
+//introduction frame
 public class FirstFrame extends JFrame{
 	
 	private JLabel label;
@@ -87,7 +89,7 @@ public class FirstFrame extends JFrame{
 	private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		JFrame parFrame = new ParametersFrame();
 		parFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		parFrame.setSize(400, 200);
+		parFrame.setSize(400, 350);
 		
 		setVisible(false);
 		parFrame.setVisible(true);

@@ -6,6 +6,8 @@ import java.net.*;
 
 import javax.swing.*;
 
+
+//help frame
 public class HelpFrame extends JFrame {
 	
 	private JButton wikiButton;

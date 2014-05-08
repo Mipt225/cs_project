@@ -1,5 +1,7 @@
 package ru.mipt.cs.cluster.nuriyaFrames;
 
+
+//For use in HelpFrame to list the parameters
 public class ParameterDescription {
 	
 	private String parameter;
