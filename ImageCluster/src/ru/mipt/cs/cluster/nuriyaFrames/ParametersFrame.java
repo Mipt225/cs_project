@@ -1,9 +1,7 @@
 package ru.mipt.cs.cluster.nuriyaFrames;
 
-import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.*;
-import java.nio.channels.*;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
@@ -32,8 +30,11 @@ public class ParametersFrame extends JFrame {
 		private JRadioButton rdbtnManhattan;
 		private JButton btnCluster;
 		private JButton btnHelp;
+		private JButton btnBrowse;
+		private JButton btnBrowseFolder;
 		
 		private ClusterisationInput input = new ClusterisationInput();
+		
 		
 		public ParametersFrame() {
 			initComponents();
@@ -44,6 +45,7 @@ public class ParametersFrame extends JFrame {
 			
 			setSize(400,400);
 			setTitle("Parameters input");
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			
 			lblNumberOfClusters = new JLabel("Number of clusters");
 			
@@ -107,9 +109,26 @@ public class ParametersFrame extends JFrame {
 				}
 			});
 			
+			btnBrowse = new JButton("Browse");
+			btnBrowse.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
+					btnBrowseActionPerformed(evt);
+				}
+			});
+			
+			btnBrowseFolder = new JButton("Browse");
+			btnBrowseFolder.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
+					btnBrowseFolderActionPerformed(evt);
+				}
+			});
 		}
 		
 		private void initLayout() {
+			
+			
+			
+			
 			
 			GroupLayout groupLayout = new GroupLayout(getContentPane());
 			groupLayout.setHorizontalGroup(
@@ -123,30 +142,29 @@ public class ParametersFrame extends JFrame {
 								.addComponent(lblInputImage)
 								.addComponent(lblAlgorithm))
 							.addComponent(btnHelp, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addComponent(rdbtnManhattan)
+							.addComponent(rdbtnEuclidianSquared)
+							.addComponent(textFieldConvergence, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addComponent(textFieldNumOfClusters, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+							.addComponent(rdbtnEuclidian)
 							.addGroup(groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(rdbtnLocalFile)
+									.addComponent(rdbtnUrl)
+									.addComponent(rdbtnFolder))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addComponent(rdbtnManhattan)
-									.addComponent(rdbtnEuclidianSquared)
-									.addComponent(textFieldConvergence, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textFieldNumOfClusters, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-									.addComponent(rdbtnEuclidian)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addComponent(rdbtnLocalFile)
-											.addComponent(rdbtnUrl)
-											.addComponent(rdbtnFolder))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addComponent(textFieldFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textFieldUrl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textFieldLocalFile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-								.addContainerGap(38, Short.MAX_VALUE))
-							.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-								.addGap(161)
-								.addComponent(btnCluster)
-								.addGap(19))))
+									.addComponent(textFieldFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textFieldUrl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textFieldLocalFile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnCluster, Alignment.TRAILING))
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addComponent(btnBrowse)
+									.addComponent(btnBrowseFolder))))
+						.addContainerGap())
 			);
 			groupLayout.setVerticalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
@@ -165,7 +183,8 @@ public class ParametersFrame extends JFrame {
 							.addGroup(groupLayout.createSequentialGroup()
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 									.addComponent(rdbtnLocalFile)
-									.addComponent(textFieldLocalFile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(textFieldLocalFile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnBrowse))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 									.addComponent(rdbtnUrl)
@@ -173,7 +192,8 @@ public class ParametersFrame extends JFrame {
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 									.addComponent(rdbtnFolder)
-									.addComponent(textFieldFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(textFieldFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnBrowseFolder))
 								.addPreferredGap(ComponentPlacement.UNRELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 									.addComponent(rdbtnEuclidian)
@@ -184,9 +204,9 @@ public class ParametersFrame extends JFrame {
 						.addComponent(rdbtnManhattan)
 						.addGap(18)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnCluster)
-							.addComponent(btnHelp))
-						.addContainerGap(28, Short.MAX_VALUE))
+							.addComponent(btnHelp)
+							.addComponent(btnCluster))
+						.addContainerGap(26, Short.MAX_VALUE))
 			);
 			getContentPane().setLayout(groupLayout);
 		}
@@ -194,46 +214,71 @@ public class ParametersFrame extends JFrame {
 		private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {
 			
 			JFrame helpFrame = new HelpFrame();
-			helpFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			helpFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			helpFrame.setSize(600, 300);
 			helpFrame.setLocation(400, 100);
 			
 			helpFrame.setVisible(true);
 		}
 		
+		private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {
+			OpenSaveDialogFrame openFrame = new OpenSaveDialogFrame();
+			input.setInputImage(openFrame.getFilePath());
+			textFieldLocalFile.setText(openFrame.getFilePath());
+			openFrame.dispose();
+		}
+		
+		private void btnBrowseFolderActionPerformed(java.awt.event.ActionEvent evt) {
+			OpenSaveDialogFrame openFrame = new OpenSaveDialogFrame();
+			input.setInputImage(openFrame.getFilePath());
+			textFieldFolder.setText(openFrame.getFilePath());
+			openFrame.dispose();
+		}
+		
 		private void btnClusterActionPerformed(java.awt.event.ActionEvent evt)  {
 			
 			ClusterisationInput input = new ClusterisationInput();
 			
-			input.setNumOfClusters ((int) Double.parseDouble(textFieldNumOfClusters.getText()));
-		
-			input.setConvergence (Double.parseDouble(textFieldConvergence.getText()));
+			try {
+				input.setNumOfClusters ((int) Double.parseDouble(textFieldNumOfClusters.getText()));
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(this, "Wrong number of clusters");
+			}
 			
+			try {
+				input.setConvergence (Double.parseDouble(textFieldConvergence.getText()));
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(this, "Wrong convergence");
+			}
 			algorithmButtonHandler();
 			
 			if (rdbtnFolder.isSelected())
 			{
+				
 				final ImageFilter imageFilter = new ImageFilter();
-			      final File dir = new File(textFieldFolder.getText());
-			      for (File imgFile : dir.listFiles()) {
-			          if(imageFilter.accept(imgFile)){
+			    final File dir = new File(textFieldFolder.getText());
+			    for (File imgFile : dir.listFiles()) {
+			          if (imageFilter.accept(imgFile)){
 			              input.setInputImage(imgFile.getPath());
-			              
-			              Thread t =new ThreadRun(input);
+			            
+			              ThreadRun t = new ThreadRun(input);
+			              t.setTName(imgFile.getPath());
 			              t.start();
 			          }
-			      }
+			    }
+			    
 			}
 			else {
+				ThreadRun t = new ThreadRun(input); 
 				if (rdbtnLocalFile.isSelected()) 
-					input.setInputImage(textFieldLocalFile.getText());
+					t.setTName(textFieldLocalFile.getText());
 				if (rdbtnUrl.isSelected())
-					input.setInputImage(loadImage(textFieldUrl.getText()));
+					t.setTName(loadImage(textFieldUrl.getText()));
 				
-				ThreadRun t = new ThreadRun(input);
-				t.start();
+			    t.start();  
 			}
 			
+			dispose();
 		}
 		
 		private void algorithmButtonHandler() {
@@ -272,7 +317,7 @@ public class ParametersFrame extends JFrame {
 				is.close();
 				os.close();
 				} catch (MalformedURLException e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(this, "No such adress");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

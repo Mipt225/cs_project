@@ -10,48 +10,40 @@ import ru.mipt.cs.cluster.kmeans.KMeans;
 
 //Thread for KMeans clustering
 public class ThreadRun extends Thread {
-	
-	private Thread t;
-	
+		
 	private ClusterisationInput input;
-	private ClusterisationOutput output;
+	private String name;
 	
-	public ThreadRun (ClusterisationInput input) {
-		this.input = input;
-	}
-	
-	public ClusterisationOutput getOutput() {
-		return output;
+	public ThreadRun(ClusterisationInput in) {
+		input = in;
 	}
 
-	public void setOutput(ClusterisationOutput output) {
-		this.output = output;
+	public void setTName(String n) {
+		name=n;
 	}
-
 	public void run() {
 		
 		KMeans kmeans = new KMeans();
 		try {
-			setOutput(kmeans.calculate(input));
+			ClusterisationInput in = new ClusterisationInput();
+			in.setAlgorithm(input.getAlgorithm());
+			in.setInputImage(name);
+			in.setConvergence(input.getConvergence());
+			in.setNumOfClusters(input.getNumOfClusters());
+			
+			ClusterisationOutput out = new ClusterisationOutput();
+			out = kmeans.calculate(in);
+			System.out.println(in.getInputImage());
+			
+			JFrame frame = new ImageFrame(in, out);
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			frame.setLocation(400, 100);
+
+			frame.setVisible(true); 
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		JFrame frame = new ImageFrame(input, output);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frame.setSize(600, 300);
-		frame.setLocation(400, 100);
-		
-		frame.setVisible(true);
 	}
-	
-	public void start ()
-	   {
-	      if (t == null)
-	      {
-	         t = new Thread (this);
-	         t.start ();
-	      }
-	   }
 
 }

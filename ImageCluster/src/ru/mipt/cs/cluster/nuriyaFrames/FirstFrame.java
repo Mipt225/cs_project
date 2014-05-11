@@ -26,6 +26,7 @@ public class FirstFrame extends JFrame{
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		setTitle("Cluster Image");
+		setLocation(400, 100);
 		
 		startButton.setText("Start!");
 		helpButton.setText("Help");
@@ -88,16 +89,16 @@ public class FirstFrame extends JFrame{
 	
 	private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		JFrame parFrame = new ParametersFrame();
-		parFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		parFrame.setSize(400, 350);
+		parFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		parFrame.setSize(460, 400);
 		
-		setVisible(false);
+		dispose();
 		parFrame.setVisible(true);
 	}
 	
 	private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		JFrame helpFrame = new HelpFrame();
-		helpFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		helpFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		helpFrame.setSize(600, 300);
 		helpFrame.setLocation(400, 100);
 		

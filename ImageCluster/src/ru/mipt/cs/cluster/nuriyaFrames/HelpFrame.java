@@ -30,8 +30,7 @@ public class HelpFrame extends JFrame {
 		introduction = new JLabel();
 		
 		DefaultListModel listModel = new DefaultListModel(); 
-		paramInfo = new JList(listModel);
-		JScrollPane sp = new JScrollPane(paramInfo);   
+		paramInfo = new JList(listModel); 
 		
 		String cluster = "<html><h2>Cluster</h2>" +
                 "<font face=’verdana’ size = 4>" +
